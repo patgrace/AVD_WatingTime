@@ -1,12 +1,12 @@
 import pandas as pd
 
-from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 
 import pickle
 import streamlit as st
 
-nama_file = 'registrasi.xlsx'
+nama_file = 'registrasi3.xlsx'
 dataset = pd.read_excel(nama_file)
 print(dataset)
 
@@ -33,10 +33,10 @@ y = dataset['Range_Waktu_tunggu']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
-svm_model = SVC(random_state=0)
-svm_model.fit(X_train, y_train)
+dt_model = DecisionTreeClassifier(random_state=0)
+dt_model.fit(X_train, y_train)
 
 filename = 'kategori_tunggu.sav'
-y_prediction_svm = svm_model.predict(X_test)
+y_prediction_svm = dt_model.predict(X_test)
 
-pickle.dump(svm_model, open(filename, 'wb'))
+pickle.dump(dt_model, open(filename, 'wb'))
